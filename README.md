@@ -1,10 +1,7 @@
 SmartCar
 ========
 
-NUIT2B Smart Car - Face and speech recognition
-
-# BattleShip in Java
-Based on classic Battleship game
+# NUIT2B Smart Car - Face and speech recognition
 
 
 ```
