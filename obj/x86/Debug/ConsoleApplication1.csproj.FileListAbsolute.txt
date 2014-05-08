@@ -1,0 +1,10 @@
+D:\Eduardo\Asignaturas\IP_Socrates-Erasmus\IP-Lahti-2014\teaching material\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+D:\Eduardo\Asignaturas\IP_Socrates-Erasmus\IP-Lahti-2014\teaching material\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+D:\Eduardo\Asignaturas\IP_Socrates-Erasmus\IP-Lahti-2014\teaching material\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+D:\Eduardo\Asignaturas\IP_Socrates-Erasmus\IP-Lahti-2014\teaching material\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.exe
+D:\Eduardo\Asignaturas\IP_Socrates-Erasmus\IP-Lahti-2014\teaching material\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.pdb
+C:\Users\Miguel\Desktop\NUIT2B\Speech\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.exe
+C:\Users\Miguel\Desktop\NUIT2B\Speech\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.pdb
+C:\Users\Miguel\Desktop\NUIT2B\Speech\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\Miguel\Desktop\NUIT2B\Speech\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\Miguel\Desktop\NUIT2B\Speech\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache

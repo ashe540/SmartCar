@@ -1,0 +1,5 @@
+C:\Users\Miguel\Desktop\NUIT2B\Speech\SpeechRecognition\bin\Debug\SpeechRecognition.exe
+C:\Users\Miguel\Desktop\NUIT2B\Speech\SpeechRecognition\bin\Debug\SpeechRecognition.pdb
+C:\Users\Miguel\Desktop\NUIT2B\Speech\SpeechRecognition\obj\x86\Debug\SpeechRecognition.csprojResolveAssemblyReference.cache
+C:\Users\Miguel\Desktop\NUIT2B\Speech\SpeechRecognition\obj\x86\Debug\SpeechRecognition.exe
+C:\Users\Miguel\Desktop\NUIT2B\Speech\SpeechRecognition\obj\x86\Debug\SpeechRecognition.pdb
