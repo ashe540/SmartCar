@@ -1,8 +1,8 @@
 SmartCar
 ========
 
-# NUIT2B Smart Car - Face and speech recognition
-
+# NUIT2B Smart Car
+Face and speech recognition
 
 ```
 Authors: Javier Milagro, Miguel Martínez, Paolo Di Feo, Andre Vogler
