@@ -8,27 +8,38 @@ using System.Threading;
 
 namespace SpeechRecognition
 {
-    class Program
+    public class Program
     {
         public Program() { }
 
         static void Main(string[] args)
         {
 
-            //Ask how many users to add and ask for info 
-            Registration.initialization();
+            Registration registration = new Registration();
+
+            //Ask how many users to add and ask for user personal data 
+            registration.initialization();
+
+            //Capture Audio Data different class for all users (Initialization) -> Store audio file or raw
+
+            //Ask user to say his name for voice recognition
+
+            //Check for name in "database"
+            User currentUser = registration.getCurrentUser();
+            if (currentUser != null)
+            {
+                //User is in database
+                Console.WriteLine("Successfully authenticated!");
+
+                //Check for correct password as well as for correct user voice (DTW or Gaussian)
+
+                //If login successful give access to SpeechRecognitionInterface
+                Interaction.start();
 
 
-            //Capture Audio Data different class for all users (Initialization) -> Store audio file
+                Console.ReadLine();
+            }
 
-            //Create class for log in
-
-            //Ask user to speak password
-
-            //Check for correct password as well as for correct user voice (DTW or Gaussian)
-
-            //If login successful give access to SpeechRecognitionInterface
-            Interaction.start();
 
         } // END OF MAIN
         

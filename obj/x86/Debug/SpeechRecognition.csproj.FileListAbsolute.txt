@@ -8,3 +8,8 @@ C:\Users\kir27303\buit2b\git\obj\x86\Debug\SpeechRecognition.pdb
 C:\Users\kir27303\buit2b\git\bin\Debug\SpeechRecognition.exe
 C:\Users\kir27303\buit2b\git\bin\Debug\SpeechRecognition.pdb
 C:\Users\kir27303\buit2b\git\obj\x86\Debug\SpeechRecognition.csprojResolveAssemblyReference.cache
+C:\Users\Miguel\Desktop\NUIT2B\Speech\AndreVersion\obj\x86\Debug\SpeechRecognition.exe
+C:\Users\Miguel\Desktop\NUIT2B\Speech\AndreVersion\obj\x86\Debug\SpeechRecognition.pdb
+C:\Users\Miguel\Desktop\NUIT2B\Speech\AndreVersion\obj\x86\Debug\SpeechRecognition.csprojResolveAssemblyReference.cache
+C:\Users\Miguel\Desktop\NUIT2B\Speech\AndreVersion\bin\Debug\SpeechRecognition.exe
+C:\Users\Miguel\Desktop\NUIT2B\Speech\AndreVersion\bin\Debug\SpeechRecognition.pdb

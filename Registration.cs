@@ -20,11 +20,24 @@ namespace SpeechRecognition
         static Choices numbers = new Choices(new string[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twenty one", "twenty two", "twenty three", "twenty four", "twenty five", "twenty six", "twenty seven", "twenty eight", "twenty nine", "thirty", "thirty one", "thirty two", "thirty three", "thirty four", "thirty five", "thirty six", "thirty seven", "thirty eight", "thirty nine", "forty ", "forty one", "forty two", "forty three", "forty four", "forty five", "forty six", "forty seven", "forty eight", "forty nine", "fifty", "fifty one", "fifty two", "fifty three", "fifty four", "fifty five", "fifty six", "fifty seven", "fifty eight", "fifty nine", "sixty", "sixty one", "sixty two", "sixty three", "sixty four", "sixty five", "sixty six", "sixty seven", "sixty eight", "sixty nine", "seventy", "seventy one", "seventy two", "seventy three", "seventy four", "seventy five", "seventy six", "seventy seven", "seventy eight", "seventy nine", "eighty", "eighty one", "eighty two", "eighty three", "eighty four", "eighty five", "eighty six", "eighty seven", "eighty eight", "eighty nine", "ninety", "ninety one", "ninety two", "ninety three", "ninety four", "ninety five", "ninety six", "ninety seven", "ninety eight", "ninety nine", "one hundred" });
         static Dictionary<String, int> numDictionary;
 
+        public User currentUser;
+
+
+        public Registration()
+        {
+
+        }
+
+        public User getCurrentUser() 
+        {
+             return this.currentUser; 
+        }
+
 
         /**
          * Use synthesizer to ask user his name or age
          */
-        static string askUserForData(string question, Choices choices)
+        public static string askUserForData(string question, Choices choices)
         {
             try
             {
@@ -95,7 +108,7 @@ namespace SpeechRecognition
 
         }
 
-        public static void initialization()
+       public void initialization()
         {
 
 
@@ -111,37 +124,78 @@ namespace SpeechRecognition
 
                 System.IO.StreamWriter file = new System.IO.StreamWriter("userInfo.txt", false);
 
-
-                for (int i = 1; i <= numUsers; i++)
+                try
                 {
 
-                    //Ask user name return string + confirm
-                    string name = "";
+
+                    for (int i = 1; i <= numUsers; i++)
+                    {
+
+                        //Ask user name return string + confirm
+                        string name = "";
 
 
-                    if (i == 1) askUserForData("What's your name?", names);
-                    else askUserForData("What is the name of user" + i + "?", names);
+                        if (i == 1) askUserForData("What's your name?", names);
+                        else askUserForData("What is the name of user" + i + "?", names);
 
-                    name = userText;
+                        name = userText;
 
-                    //ask user age + confirm
-                    if (i == 1) askUserForData("How old are you?", numbers);
-                    else askUserForData("How old is " + name + "?", numbers);
+                        //ask user age + confirm
+                        if (i == 1) askUserForData("How old are you?", numbers);
+                        else askUserForData("How old is " + name + "?", numbers);
 
-                    string ageStr = userText;
+                        string ageStr = userText;
 
 
-                    int age;
-                    numDictionary.TryGetValue(ageStr, out age);
+                        int age;
+                        numDictionary.TryGetValue(ageStr, out age);
 
-                    file.WriteLine(name + "," + age + "\n");
+                        if (i == 1)
+                        {
+                            currentUser = new User(name, age);
+                            currentUser.DateOfBirth();
+                        }
+
+                        file.WriteLine(currentUser.Name + "," + currentUser.Age + "\n");
+
+                    }
 
                 }
+                catch (Exception superbogus) { Console.WriteLine("Superbogus Exception detected: " + superbogus.StackTrace); }
+                finally
+                {
+                    file.Close();
+                }
+            }
+            else
+            {
+                //If file exists then ask for log in name and assign to currentUser
 
-                file.Close();
+                askUserForData("What is your name?", names);
 
+                User user = getUserFromDB(userText);
+
+                if (user != null) currentUser = user;
             }
 
+        }
+
+        public static User getUserFromDB(String name)
+        {
+            String line;
+            // Read the file and display it line by line.
+            System.IO.StreamReader file = new System.IO.StreamReader("userInfo.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                String[] array = line.Split(',');
+                if (array[0].Equals(name))
+                {
+                    int age;
+                    int.TryParse(array[1], out age);
+                    return new User(name, age);
+                }
+            }
+            return null;
         }
 
         static Boolean confirmSelection()
