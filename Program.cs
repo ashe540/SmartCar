@@ -160,12 +160,41 @@ namespace SpeechRecognition
 
             //Check for correct password as well as for correct user voice (DTW or Gaussian)
 
-            //If login successful give access to gestures
-
+            //If login successful give access to SpeechRecognitionInterface
+            Interaction();
 
         } // END OF MAIN
 
+        static void Interaction()
+        {
+            // Create a SpeechRecognitionEngine object for the default recognizer in the en-US locale.
+            using (SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US")))
+            {
+                // Configure the input to the speech recognizer.
+                recognizer.SetInputToDefaultAudioDevice();
 
+                Grammar interaction = Grammars.Speech();
+                interaction.Name = ("Speech analyser");
+                recognizer.LoadGrammarAsync(interaction);
+                // Add a handler for the speech recognized event.
+                recognizer.SpeechRecognized +=
+                  new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized);
+                recognizer.SpeechHypothesized +=
+                  new EventHandler<SpeechHypothesizedEventArgs>(Handler.recognizer_SpeechHypothesized);
+                recognizer.SpeechRecognitionRejected +=
+                  new EventHandler<SpeechRecognitionRejectedEventArgs>(Handler.recognizer_SpeechRecognitionRejected);
+                recognizer.LoadGrammarCompleted +=
+                  new EventHandler<LoadGrammarCompletedEventArgs>(Handler.recognizer_LoadGrammarCompleted);
+                recognizer.AudioStateChanged +=
+                  new EventHandler<AudioStateChangedEventArgs>(Handler.recognizer_AudioStateChanged);
+
+                // Start asynchronous, continuous speech recognition.
+                recognizer.RecognizeAsync(RecognizeMode.Multiple);
+
+                // Keep the console window open.
+                while (true) Console.ReadLine();
+            }
+        }
         static Boolean confirmSelection()
         {
             SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
