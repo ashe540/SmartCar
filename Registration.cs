@@ -128,8 +128,6 @@ namespace SpeechRecognition
                         else askUserForData("How old is " + name + "?", numbers);
 
                         string ageStr = userText;
-
-
                         int age;
                         numDictionary.TryGetValue(ageStr, out age);
 
