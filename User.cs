@@ -2,7 +2,6 @@
 
 namespace SpeechRecognition
 {
-
     public class User
     {
         public int Age { get; set; }
@@ -24,7 +23,5 @@ namespace SpeechRecognition
             string s = Age.ToString();
             return Name + ", " + s;
         }
-
     }
-
 }

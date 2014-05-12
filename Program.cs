@@ -15,7 +15,6 @@ namespace SpeechRecognition
         static void Main(string[] args)
         {
             Registration registration = new Registration();
-
             //Ask how many users to add and ask for user personal data 
             registration.initialization();
 

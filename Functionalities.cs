@@ -106,7 +106,6 @@ namespace SpeechRecognition
                     break;
             }
             if (invalid) Invalid();
-
         }
 
         public static void Invalid()
@@ -127,6 +126,5 @@ namespace SpeechRecognition
             Console.WriteLine(input);
             Console.ForegroundColor = ConsoleColor.White;
         }
-
     }
 }
