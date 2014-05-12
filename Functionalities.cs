@@ -111,9 +111,7 @@ namespace SpeechRecognition
 
         public static void Invalid()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Invalid Input, try again");
-            Console.ForegroundColor = ConsoleColor.White;
+            ErrorText("Invalid Input, try again");
         }
 
         public static void ErrorText(string input)
