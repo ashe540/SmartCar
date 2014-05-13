@@ -14,17 +14,17 @@ namespace SpeechRecognition
 
         static void Main(string[] args)
         {
-//            Registration registration = new Registration();
+            Registration registration = new Registration();
             //Ask how many users to add and ask for user personal data 
-//            registration.initialization();
+            registration.initialization();
 
             //Capture Audio Data different class for all users (Initialization) -> Store audio file or raw
 
             //Ask user to say his name for voice recognition
 
             //Check for name in "database"
- //           if (registration.getCurrentUser() != null)
- //           {
+           if (registration.getCurrentUser() != null)
+           {
                 //User is in database
                 Console.WriteLine("Successfully authenticated!");
 
@@ -34,7 +34,7 @@ namespace SpeechRecognition
                 Interaction.start();
 
                 Console.ReadLine();
- //           }
+           }
         } // END OF MAIN
     }
 }

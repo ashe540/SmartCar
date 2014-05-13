@@ -15,6 +15,10 @@ namespace SpeechRecognition
 
         static Boolean carOn = false;
 
+        static String DIR = "../../Resources/Sounds/";
+        static int currentSong = 0;
+        static String[] music = {"wreckingball.wav","sweethomealabama.wav","gangmanstyle.wav","happy.wav"};
+
         public Functionalities(){}
 
         public static void RadioFunctionalities(string[] input)
@@ -29,7 +33,7 @@ namespace SpeechRecognition
                 switch (input[1])
                 {
                     case "on":
-                        snd = new SoundPlayer("../../Resources/Sounds/wreckingball.wav");
+                        snd = new SoundPlayer(DIR+music[currentSong]);
                         snd.Play();
                         invalid = false;
                         break;
@@ -44,12 +48,18 @@ namespace SpeechRecognition
                         invalid = false;
                         break;
                     case "next":
+                        currentSong = (currentSong + 1) % music.Length;
+                        snd.SoundLocation = DIR+music[currentSong];
+                        snd.Play();
                         invalid = false;
                         break;
                     case "silent":
                         invalid = false;
                         break;
                     case "previous":
+                        currentSong = (currentSong - 1) % music.Length;
+                        snd.SoundLocation = DIR+music[currentSong];
+                        snd.Play();
                         invalid = false;
                         break;
                     case "randomize":

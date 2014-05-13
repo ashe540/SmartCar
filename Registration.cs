@@ -20,11 +20,11 @@ namespace SpeechRecognition
 
         public User currentUser;
 
-        public Registration(){}
+        public Registration() { }
 
-        public User getCurrentUser() 
+        public User getCurrentUser()
         {
-             return this.currentUser; 
+            return this.currentUser;
         }
         /**
          * Use synthesizer to ask user his name or age
@@ -97,7 +97,7 @@ namespace SpeechRecognition
             return userText;
         }
 
-       public void initialization()
+        public void initialization()
         {
             if (!File.Exists("userInfo.txt"))
             {
@@ -215,29 +215,17 @@ namespace SpeechRecognition
 
         static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
+            if (confirmation) confirmationText = e.Result.Text;
+            else userText = e.Result.Text;
 
-            if (e.Result.Confidence >= 0.25) 
-            { 
-
-                if (confirmation) confirmationText = e.Result.Text;
-                else userText = e.Result.Text;
-
-                textRecognized = true;
-                /*            if (e.Result.Text.Contains("Restart configuration"))
-                            {
-                                initialization();
-                                throw SteveScumbagException();
-                            }
-                */
-                Console.WriteLine(e.Result.Text);
-
-            }
-            else
-            {
-                SpeechSynthesizer synth = new SpeechSynthesizer();
-                synth.Speak("Please repeat");
-
-            }
+            textRecognized = true;
+            /*            if (e.Result.Text.Contains("Restart configuration"))
+                        {
+                            initialization();
+                            throw SteveScumbagException();
+                        }
+            */
+            Console.WriteLine(e.Result.Text);
         }
 
         //END OF WORD RECOGNITION
