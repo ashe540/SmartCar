@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Choice.cs" />
+    <Compile Include="Dict.cs" />
     <Compile Include="Functionalities.cs" />
     <Compile Include="Grammars.cs" />
     <Compile Include="Handler.cs" />

@@ -15,7 +15,9 @@ namespace SpeechRecognition
         static void Main(string[] args)
         {
             Registration registration = new Registration();
+            Dict dict = new Dict();
             //Ask how many users to add and ask for user personal data 
+            dict.init();
             registration.initialization();
 
             //Capture Audio Data different class for all users (Initialization) -> Store audio file or raw
