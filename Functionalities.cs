@@ -11,45 +11,58 @@ namespace SpeechRecognition
 {
     public class Functionalities
     {
+        static SoundPlayer snd;
+
         static Boolean carOn = false;
 
         public Functionalities(){}
 
         public static void RadioFunctionalities(string[] input)
         {
-            bool invalid = true;
-            CorrectText("Radio functionalities");
-            switch (input[1])
+
+            if (carOn)
             {
-                case "on":
-                    invalid = false;
-                    break;
-                case "off":
-                    invalid = false;
-                    break;
-                case "louder":
-                    invalid = false;
-                    break;
-                case "quieter":
-                    invalid = false;
-                    break;
-                case "next":
-                    invalid = false;
-                    break;
-                case "silent":
-                    invalid = false;
-                    break;
-                case "previous":
-                    invalid = false;
-                    break;
-                case "randomize":
-                    invalid = false;
-                    break;
-                case "shuffle":
-                    invalid = false;
-                    break;
+
+                bool invalid = true;
+                CorrectText("Radio functionalities");
+
+                switch (input[1])
+                {
+                    case "on":
+                        snd = new SoundPlayer("../../Resources/Sounds/wreckingball.wav");
+                        snd.Play();
+                        invalid = false;
+                        break;
+                    case "off":
+                        if(snd != null) snd.Stop();
+                        invalid = false;
+                        break;
+                    case "louder":
+                        invalid = false;
+                        break;
+                    case "quieter":
+                        invalid = false;
+                        break;
+                    case "next":
+                        invalid = false;
+                        break;
+                    case "silent":
+                        invalid = false;
+                        break;
+                    case "previous":
+                        invalid = false;
+                        break;
+                    case "randomize":
+                        invalid = false;
+                        break;
+                    case "shuffle":
+                        invalid = false;
+                        break;
+                }
+                if (invalid) Invalid();
+
             }
-            if (invalid) Invalid();
+
         }
 
         public static void CarFunctionalities(string[] input)
@@ -68,7 +81,7 @@ namespace SpeechRecognition
                 case "off":
                     if (carOn)
                     {
-                        SoundPlayer snd = new SoundPlayer("../../Resources/Sounds/engineon.wav");
+                        SoundPlayer snd = new SoundPlayer("../../Resources/Sounds/engineoff.wav");
                         snd.Play();
                         carOn = false;
                     }

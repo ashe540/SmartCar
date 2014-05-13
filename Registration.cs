@@ -215,17 +215,29 @@ namespace SpeechRecognition
 
         static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (confirmation) confirmationText = e.Result.Text;
-            else userText = e.Result.Text;
 
-            textRecognized = true;
-            /*            if (e.Result.Text.Contains("Restart configuration"))
-                        {
-                            initialization();
-                            throw SteveScumbagException();
-                        }
-            */
-            Console.WriteLine(e.Result.Text);
+            if (e.Result.Confidence >= 0.25) 
+            { 
+
+                if (confirmation) confirmationText = e.Result.Text;
+                else userText = e.Result.Text;
+
+                textRecognized = true;
+                /*            if (e.Result.Text.Contains("Restart configuration"))
+                            {
+                                initialization();
+                                throw SteveScumbagException();
+                            }
+                */
+                Console.WriteLine(e.Result.Text);
+
+            }
+            else
+            {
+                SpeechSynthesizer synth = new SpeechSynthesizer();
+                synth.Speak("Please repeat");
+
+            }
         }
 
         //END OF WORD RECOGNITION
