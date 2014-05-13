@@ -6,6 +6,7 @@ using System.Speech;
 using Microsoft.Speech.Recognition;
 using System.Media;
 using System.IO;
+using System.Speech.Synthesis;
 
 namespace SpeechRecognition
 {
@@ -27,46 +28,45 @@ namespace SpeechRecognition
             if (carOn)
             {
 
-                bool invalid = true;
+                bool invalid = false;
                 CorrectText("Radio functionalities");
 
                 switch (input[1])
                 {
                     case "on":
-                        snd = new SoundPlayer(DIR+music[currentSong]);
+                        snd = new SoundPlayer(DIR + music[currentSong]);
                         snd.Play();
-                        invalid = false;
                         break;
                     case "off":
-                        if(snd != null) snd.Stop();
-                        invalid = false;
+                        if (snd != null) snd.Stop();
                         break;
                     case "louder":
-                        invalid = false;
                         break;
                     case "quieter":
-                        invalid = false;
                         break;
                     case "next":
                         currentSong = (currentSong + 1) % music.Length;
-                        snd.SoundLocation = DIR+music[currentSong];
+                        snd.SoundLocation = DIR + music[currentSong];
                         snd.Play();
-                        invalid = false;
                         break;
                     case "silent":
-                        invalid = false;
                         break;
                     case "previous":
-                        currentSong = (currentSong - 1) % music.Length;
-                        snd.SoundLocation = DIR+music[currentSong];
+                        if (currentSong > 0) currentSong--;
+                        else currentSong = music.Length - 1;
+
+                        snd.SoundLocation = DIR + music[currentSong];
                         snd.Play();
-                        invalid = false;
                         break;
-                    case "randomize":
-                        invalid = false;
-                        break;
+                    case "random":
                     case "shuffle":
-                        invalid = false;
+                        Random rnd = new Random();
+                        currentSong = rnd.Next(0, music.Length - 1);
+                        snd.SoundLocation = DIR + music[currentSong];
+                        snd.Play();
+                        break;
+                    default:
+                        invalid = true;
                         break;
                 }
                 if (invalid) Invalid();
@@ -83,7 +83,7 @@ namespace SpeechRecognition
                 case "on":
                     if (!carOn)
                     {
-                        SoundPlayer snd = new SoundPlayer("../../Resources/Sounds/engineon.wav");
+                        SoundPlayer snd = new SoundPlayer(DIR+"engineon.wav");
                         snd.Play();
                         carOn = true;
                     }
@@ -91,7 +91,7 @@ namespace SpeechRecognition
                 case "off":
                     if (carOn)
                     {
-                        SoundPlayer snd = new SoundPlayer("../../Resources/Sounds/engineoff.wav");
+                        SoundPlayer snd = new SoundPlayer(DIR+"engineoff.wav");
                         snd.Play();
                         carOn = false;
                     }
@@ -102,23 +102,21 @@ namespace SpeechRecognition
         public static void ACFunctionalities(string[] input)
         {
             CorrectText("AC-Functionalities");
-            bool invalid = true;
+            bool invalid = false;
             switch (input[1])
             {
                 case "warmer":
-                    invalid = false;
                     break;
                 case "colder":
-                    invalid = false;
                     break;
                 case "hotter":
-                    invalid = false;
                     break;
                 case "on":
-                    invalid = false;
                     break;
                 case "off":
-                    invalid = false;
+                    break;
+                default:
+                    invalid = true;
                     break;
             }
             if (invalid) Invalid();
@@ -126,15 +124,16 @@ namespace SpeechRecognition
 
         public static void NavFunctionalities(string[] input)
         {
-            bool invalid = true;
+            bool invalid = false;
             CorrectText("Nav-Functionalities");
             switch (input[1])
             {
                 case "on":
-                    invalid = false;
                     break;
                 case "off":
-                    invalid = false;
+                    break;
+                default:
+                    invalid = true;
                     break;
             }
             if (invalid) Invalid();
@@ -142,20 +141,29 @@ namespace SpeechRecognition
 
         public static void PhoneFuntionalities(string[] input)
         {
-            bool invalid = true;
+            bool invalid = false;
             CorrectText("Phone-Functionalities");
             switch (input[1])
             {
                 case "accept":
-                    invalid = false;
                     break;
                 case "decline":
-                    invalid = false;
                     break;
                 case "call":
-                    invalid = false;
+                    SpeechSynthesizer synth = new SpeechSynthesizer();
+                    synth.Speak("Initiating call. Please wait...");
+                    System.Threading.Thread.Sleep(2000);
+                    snd = new SoundPlayer(DIR+"phonecall.wav");
+                    snd.Play();
+                    break;
+                case "hangup":
+                    snd.Stop();
+                    break;
+                default:
+                    invalid = true;
                     break;
             }
+            
             if (invalid) Invalid();
         }
 
