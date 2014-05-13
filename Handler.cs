@@ -24,6 +24,9 @@ namespace SpeechRecognition
                 case "Radio":
                     Functionalities.RadioFunctionalities(text);
                     break;
+                case "Car":
+                    Functionalities.CarFunctionalities(text);
+                    break;
                 case "Air_Condition":
                     Functionalities.ACFunctionalities(text);
                     break;

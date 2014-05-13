@@ -12,7 +12,7 @@ namespace SpeechRecognition
 
         public static Grammar Speech()
         {
-            Choices choices = new Choices(new string[] { "Radio", "Air_Condition", "Navigation", "Phone" });
+            Choices choices = new Choices(new string[] { "Radio", "Air_Condition", "Navigation", "Phone", "Car" });
             Choices second_choices = new Choices(new string[] { "warmer", "hotter", "colder", "on", "off", "next", "louder", "quieter", "previous", "silent", "out", "random", "shuffle"
                                                                     + "accept", "decline", "call"});
             Choices third_choices = new Choices(new string[] { "one", "two", "three", "four", "twenty_one", " " });

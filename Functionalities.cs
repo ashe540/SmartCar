@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Speech;
 using Microsoft.Speech.Recognition;
+using System.Media;
+using System.IO;
 
 namespace SpeechRecognition
 {
     public class Functionalities
     {
+        static Boolean carOn = false;
+
         public Functionalities(){}
 
         public static void RadioFunctionalities(string[] input)
@@ -46,6 +50,30 @@ namespace SpeechRecognition
                     break;
             }
             if (invalid) Invalid();
+        }
+
+        public static void CarFunctionalities(string[] input)
+        {
+
+            switch (input[1])
+            {
+                case "on":
+                    if (!carOn)
+                    {
+                        SoundPlayer snd = new SoundPlayer("../../Resources/Sounds/engineon.wav");
+                        snd.Play();
+                        carOn = true;
+                    }
+                    break;
+                case "off":
+                    if (carOn)
+                    {
+                        SoundPlayer snd = new SoundPlayer("../../Resources/Sounds/engineon.wav");
+                        snd.Play();
+                        carOn = false;
+                    }
+                    break;
+            }
         }
 
         public static void ACFunctionalities(string[] input)
