@@ -1,9 +1,5 @@
 ﻿using System;
 using Microsoft.Speech.Recognition;
-using System.Speech.Synthesis;
-using System.IO;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace SpeechRecognition
 {
