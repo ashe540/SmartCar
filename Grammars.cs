@@ -33,11 +33,10 @@ namespace SpeechRecognition
             gb.Culture = new System.Globalization.CultureInfo("en-US");
             gb.Append(new SemanticResultKey("text", new Choices(new string[] { "Yes", "Yep", "Yeah", "No", "Nope" })));
 
-            // Create a Grammar object and load it to the recognizer.
             Grammar g = new Grammar(gb);
-            g.Name = ("Text");
+            g.Name = ("Confirmation");
 
-            g.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized2);
+            //g.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized2);
             return g;
         }
 
@@ -53,14 +52,10 @@ namespace SpeechRecognition
             restart.AppendWildcard();
             restart.Append(new SemanticResultKey("Restart", "Restart configuration"));
 
-            // Create a Choices for the two alternative phrases, convert the Choices
-            // to a GrammarBuilder, and construct the grammar from the result.
-
             Choices bothg = new Choices(new GrammarBuilder[] { gb, restart });
             GrammarBuilder bf = new GrammarBuilder(bothg);
             bf.Culture = new System.Globalization.CultureInfo("en-US");
 
-            // Create a Grammar object and load it to the recognizer.
             Grammar g = new Grammar(bf);
             g.Name = ("Names");
             return g;

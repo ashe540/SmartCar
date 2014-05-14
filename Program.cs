@@ -11,9 +11,10 @@ namespace SpeechRecognition
             Registration registration = new Registration();
             Dict dict = new Dict();
             Appearance appear = new Appearance();
-            //Ask how many users to add and ask for user personal data 
+            //Initialisation of ressources
             appear.ínit();
             dict.init();
+            //Registration or Login
             registration.initialization();
 
             //Capture Audio Data different class for all users (Initialization) -> Store audio file or raw
