@@ -73,7 +73,7 @@ namespace SpeechRecognition
         {
             if (!File.Exists("userInfo.txt"))
             {
-                String users = askUserForData("How many users do you want to add to the system?", ToChoose.numbers);
+                String users = askUserForData("How many users do you want to add to the system?", ToChoose.small_numbers);
 
                 int numUsers;
                 Dict.numDictionary.TryGetValue(users, out numUsers);
