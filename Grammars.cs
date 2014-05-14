@@ -40,5 +40,30 @@ namespace SpeechRecognition
             g.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized2);
             return g;
         }
+
+        public static Grammar UserData(Choices choices)
+        {
+            GrammarBuilder gb = new GrammarBuilder();
+            gb.Culture = new System.Globalization.CultureInfo("en-US");
+
+            gb.Append(new SemanticResultKey("text", choices));
+
+            GrammarBuilder restart = new GrammarBuilder();
+            restart.Culture = new System.Globalization.CultureInfo("en-US");
+            restart.AppendWildcard();
+            restart.Append(new SemanticResultKey("Restart", "Restart configuration"));
+
+            // Create a Choices for the two alternative phrases, convert the Choices
+            // to a GrammarBuilder, and construct the grammar from the result.
+
+            Choices bothg = new Choices(new GrammarBuilder[] { gb, restart });
+            GrammarBuilder bf = new GrammarBuilder(bothg);
+            bf.Culture = new System.Globalization.CultureInfo("en-US");
+
+            // Create a Grammar object and load it to the recognizer.
+            Grammar g = new Grammar(bf);
+            g.Name = ("Names");
+            return g;
+        }
     }
 }

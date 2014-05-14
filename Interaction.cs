@@ -25,9 +25,6 @@ namespace SpeechRecognition
                 // Add a handler for the speech recognized event.
                 recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized);
                 recognizer.SpeechHypothesized += new EventHandler<SpeechHypothesizedEventArgs>(Handler.recognizer_SpeechHypothesized);
-//               recognizer.SpeechRecognitionRejected += new EventHandler<SpeechRecognitionRejectedEventArgs>(Handler.recognizer_SpeechRecognitionRejected);
-//                recognizer.LoadGrammarCompleted += new EventHandler<LoadGrammarCompletedEventArgs>(Handler.recognizer_LoadGrammarCompleted);
-//                recognizer.AudioStateChanged += new EventHandler<AudioStateChangedEventArgs>(Handler.recognizer_AudioStateChanged);
 
                 // Start asynchronous, continuous speech recognition.
                 recognizer.RecognizeAsync(RecognizeMode.Multiple);
