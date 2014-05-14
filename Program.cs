@@ -10,7 +10,9 @@ namespace SpeechRecognition
         {
             Registration registration = new Registration();
             Dict dict = new Dict();
+            Appearance appear = new Appearance();
             //Ask how many users to add and ask for user personal data 
+            appear.ínit();
             dict.init();
             registration.initialization();
 

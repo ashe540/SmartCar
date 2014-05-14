@@ -9,10 +9,10 @@ namespace SpeechRecognition
 {
     public class Registration
     {
-        static string userText;
-        static string confirmationText;
-        static Boolean textRecognized = false;
-        static Boolean confirmation = false;
+        public static string userText;
+        public static string confirmationText;
+        public static Boolean textRecognized = false;
+        public static Boolean confirmation = false;
 
         public User currentUser;
 
@@ -62,7 +62,7 @@ namespace SpeechRecognition
                     recognizer.LoadGrammarAsync(g);
 
                     // Add a handler for the speech recognized event.
-                    recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);
+                    recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized2);
 
                     resetControlVariables();
 
@@ -73,7 +73,7 @@ namespace SpeechRecognition
                     // Keep the console window open.
                     while (!textRecognized) ;
 
-                    recognizer.SpeechRecognized -= recognizer_SpeechRecognized;
+                    recognizer.SpeechRecognized -= Handler.recognizer_SpeechRecognized2;
 
                     Boolean restartConfig = false;
 
@@ -172,27 +172,18 @@ namespace SpeechRecognition
             recognizer.SetInputToDefaultAudioDevice();
 
             // Add a handler for the speech recognized event.
-            recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);
-
-            GrammarBuilder gb = new GrammarBuilder();
-            gb.Culture = new System.Globalization.CultureInfo("en-US");
-            gb.Append(new SemanticResultKey("text", new Choices(new string[] { "Yes", "Yep", "Yeah", "No", "Nope" })));
-
-            // Create a Grammar object and load it to the recognizer.
-            Grammar g = new Grammar(gb);
-            g.Name = ("Text");
-            recognizer.LoadGrammar(g);
-            //RecognitionResult result = recognizer.Recognize();
+            recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized2);
+            Grammar confirm = Grammars.Confirm();
+            recognizer.LoadGrammarAsync(confirm);
 
             confirmation = true;
             textRecognized = false;
-
             // Start synchronous speech recognition.
             recognizer.RecognizeAsync();
 
             while (!textRecognized) ;
 
-            recognizer.SpeechRecognized -= recognizer_SpeechRecognized;
+            recognizer.SpeechRecognized -= Handler.recognizer_SpeechRecognized2;
 
             switch (confirmationText)
             {
@@ -206,22 +197,6 @@ namespace SpeechRecognition
                 default: return false;
             }
         }
-
-        static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-        {
-            if (confirmation) confirmationText = e.Result.Text;
-            else userText = e.Result.Text;
-
-            textRecognized = true;
-            /*            if (e.Result.Text.Contains("Restart configuration"))
-                        {
-                            initialization();
-                            throw SteveScumbagException();
-                        }
-            */
-            Console.WriteLine(e.Result.Text);
-        }
-
         //END OF WORD RECOGNITION
 
         static void resetControlVariables()

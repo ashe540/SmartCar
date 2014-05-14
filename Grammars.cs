@@ -26,5 +26,19 @@ namespace SpeechRecognition
             EventHandler<SpeechRecognizedEventArgs>(Handler.Speech_Handler);
             return speech;
         }
+
+        public static Grammar Confirm()
+        {
+            GrammarBuilder gb = new GrammarBuilder();
+            gb.Culture = new System.Globalization.CultureInfo("en-US");
+            gb.Append(new SemanticResultKey("text", new Choices(new string[] { "Yes", "Yep", "Yeah", "No", "Nope" })));
+
+            // Create a Grammar object and load it to the recognizer.
+            Grammar g = new Grammar(gb);
+            g.Name = ("Text");
+
+            g.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_SpeechRecognized2);
+            return g;
+        }
     }
 }

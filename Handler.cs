@@ -104,5 +104,20 @@ namespace SpeechRecognition
             }
             Console.WriteLine("Grammar {0} {1} loaded and {2} enabled.", grammarName, (grammarLoaded) ? "is" : "is not", (grammarEnabled) ? "is" : "is not");
         }
+
+        public static void recognizer_SpeechRecognized2(object sender, SpeechRecognizedEventArgs e)
+        {
+            if (Registration.confirmation) Registration.confirmationText = e.Result.Text;
+            else Registration.userText = e.Result.Text;
+
+            Registration.textRecognized = true;
+            /*            if (e.Result.Text.Contains("Restart configuration"))
+                        {
+                            initialization();
+                            throw SteveScumbagException();
+                        }
+            */
+            Console.WriteLine(e.Result.Text);
+        }
     }
 }
