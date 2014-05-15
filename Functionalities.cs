@@ -36,9 +36,14 @@ namespace SpeechRecognition
                 switch (input[1])
                 {
                     case "on":
-                        snd = new SoundPlayer(DIR + music[currentSong]);
-                        snd.Play();
-                        radioOn = true;
+
+                        if (!radioOn)
+                        {
+                            snd = new SoundPlayer(DIR + music[currentSong]);
+                            snd.Play();
+                            radioOn = true;
+                        }
+                        else suggest("Radio is already on");
                         break;
                     case "off":
                         if (snd != null)
@@ -46,7 +51,7 @@ namespace SpeechRecognition
                             snd.Stop();
                             radioOn = false;
                         }
-                        else suggest("Radio must be on to turn off.");
+                        else suggest("Radio is already turned off.");
 
                         break;
                     case "louder":
