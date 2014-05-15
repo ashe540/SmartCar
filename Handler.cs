@@ -4,13 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Speech;
 using Microsoft.Speech.Recognition;
+using System.IO;
+
+using MathWorks.MATLAB.NET.Arrays;
+using MathWorks.MATLAB.NET.Utility;
+using speakerVerification_v5;
+//using MathWorks.MATLAB.NET.Utility.MWMCRVersion;
 
 namespace SpeechRecognition
 {
     class Handler
     {
+
+        private Program main;
+
         public Handler(){}
-        
+
+        public Program getProgram(){return main;}
+
+        public Handler(Program p)
+        {
+            this.main = p;
+        }
+
+
         public static void Speech_Handler(object sender, SpeechRecognizedEventArgs e)
         {
             if (e.Result == null) return;
@@ -119,5 +136,46 @@ namespace SpeechRecognition
             */
             Console.WriteLine(e.Result.Text);
         }
+
+
+        public static void recognizer_userRecognized(object sender, System.Speech.Recognition.SpeechRecognizedEventArgs e)
+        {
+            if (File.Exists("../../Resources/Data/Test/actual_user_speech.wav"))
+            {
+                try
+                {
+                    File.Delete("../../Resources/Data/Test/actual_user_speech.wav");
+                }
+                catch { }
+            }
+
+            FileStream file = new FileStream("../../Resources/Data/Test/actual_user_speech.wav", FileMode.OpenOrCreate);
+
+            e.Result.Audio.WriteToWaveStream(file);
+            file.Flush();
+            file.Close();
+            //MWNumericArray nUser = new MWNumericArray(new int());
+            MWNumericArray access = new MWNumericArray(new int());
+            speakerVerification sV = new speakerVerification();
+
+            access = (MWNumericArray)sV.mat_speakerVerification_test((MWNumericArray)(Program.registration.currentUser.Id));
+
+            if ((int)access == 1)
+            {
+                Console.WriteLine("Verification completed. User name:");
+                //Console.WriteLine(usersString[(Int32)nUser - 1]);
+                Console.WriteLine(Program.registration.currentUser.Name);
+                Console.WriteLine();
+                Console.WriteLine("Done.");
+                Program.dictationCompleted = true;
+            }
+            else
+            {
+                Console.WriteLine("Access denied.");
+
+            }
+        }
+
+
     }
 }

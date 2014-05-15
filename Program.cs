@@ -52,7 +52,10 @@ namespace SpeechRecognition
                 sre.RecognizeAsync(RecognizeMode.Multiple);
 
                 while (!dictationCompleted) ;
-                
+
+                sre.SpeechRecognized -= new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_userRecognized);
+
+
                 //User is in database
                 Console.WriteLine("Successfully authenticated!");
 

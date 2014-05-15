@@ -170,8 +170,6 @@ namespace SpeechRecognition
 
             recognizer.SpeechRecognized -= Handler.recognizer_SpeechRecognized2;
 
-            return true;
-
             switch (confirmationText)
             {
                 case "Yes":
