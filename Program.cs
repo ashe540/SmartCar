@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Speech.Recognition;
+using System.Speech.Synthesis;
 
 namespace SpeechRecognition
 {
@@ -6,9 +8,16 @@ namespace SpeechRecognition
     {
         public Program() { }
 
+        public static Registration registration;
+        public static int id;
+        public static SpeechRecognitionEngine sre;
+
+        public static Boolean dictationCompleted = false;
+
+
         static void Main(string[] args)
         {
-            Registration registration = new Registration();
+            registration = new Registration();
             Dict dict = new Dict();
             Appearance appear = new Appearance();
             //Initialisation of ressources
@@ -24,6 +33,26 @@ namespace SpeechRecognition
             //Check for name in "database"
             if (registration.getCurrentUser() != null)
             {
+
+
+
+                Grammar dictation = new DictationGrammar();
+                dictation.Name = "Dictation Grammar";
+                sre = new System.Speech.Recognition.SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
+                SpeechSynthesizer synth = new SpeechSynthesizer();
+                synth.SetOutputToDefaultAudioDevice();
+
+                synth.Speak("Starting user verification.");
+
+                sre.SetInputToDefaultAudioDevice();
+
+                sre.LoadGrammar(dictation);
+                sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Handler.recognizer_userRecognized);
+
+                sre.RecognizeAsync(RecognizeMode.Multiple);
+
+                while (!dictationCompleted) ;
+                
                 //User is in database
                 Console.WriteLine("Successfully authenticated!");
 

@@ -16,12 +16,17 @@ namespace SpeechRecognition
 
         public User currentUser;
 
+
+        public static Dictionary<String, int> userDict = new Dictionary<String, int>() { { "Javier", 1 }, { "Miguel", 2 }, { "Andre", 3 }, { "Leevi", 4 }, { "Paolo", 5 }, };
+
+
         public Registration() { }
 
         public User getCurrentUser()
         {
             return this.currentUser;
         }
+
         /**
          * Use synthesizer to ask user his name or age
          */
@@ -100,13 +105,17 @@ namespace SpeechRecognition
                         int age;
                         Dict.numDictionary.TryGetValue(ageStr, out age);
 
+                        int id;
+                        userDict.TryGetValue(name, out id);
+
+
                         if (i == 1)
                         {
-                            currentUser = new User(name, age);
+                            currentUser = new User(name, age,id) ;
                             currentUser.DateOfBirth();
                         }
 
-                        file.WriteLine(currentUser.Name + "," + currentUser.Age + "\n");
+                        file.WriteLine(name + "," + age + ","+ id + "\n");
                     }
                 }
                 catch (Exception superbogus) { Console.WriteLine("Superbogus Exception detected: " + superbogus.StackTrace); }
@@ -132,9 +141,10 @@ namespace SpeechRecognition
                 String[] array = line.Split(',');
                 if (array[0].Equals(name))
                 {
-                    int age;
+                    int age, id;
                     int.TryParse(array[1], out age);
-                    return new User(name, age);
+                    int.TryParse(array[2], out id);
+                    return new User(name, age, id);
                 }
             }
             return null;
@@ -159,6 +169,8 @@ namespace SpeechRecognition
             while (!textRecognized) ;
 
             recognizer.SpeechRecognized -= Handler.recognizer_SpeechRecognized2;
+
+            return true;
 
             switch (confirmationText)
             {
