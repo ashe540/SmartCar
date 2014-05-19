@@ -23,6 +23,7 @@ and exported to `%DIR%\Resources\Data\Train\training_results.mat`.
 
 The Matlab Compiler Runtime(v713) must also be installed on your machine.
 
+Download link: [MEGA](https://mega.co.nz/#!OVcQmS6D!9d943TCpi978Hlp2x8fUS1iCPObKdofgVeBs7WG463o)
 
 ### TECHNOLOGY:
 
