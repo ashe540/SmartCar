@@ -7,10 +7,15 @@ namespace SpeechRecognition
         public int Age { get; set; }
         public string Name { get; set; }
 
-        public User(string name, int age)
+        public int Id { get; set; }
+
+
+
+        public User(string name, int age, int id)
         {
             Name = name;
             Age = age;
+            Id = id;
         }
 
         public int DateOfBirth()

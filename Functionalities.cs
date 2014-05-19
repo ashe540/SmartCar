@@ -15,6 +15,8 @@ namespace SpeechRecognition
         static SoundPlayer snd;
 
         static Boolean carOn = false;
+        static Boolean radioOn = false;
+        static Boolean callUnderway = false;
 
         static String DIR = "../../Resources/Sounds/";
         static int currentSong = 0;
@@ -34,36 +36,64 @@ namespace SpeechRecognition
                 switch (input[1])
                 {
                     case "on":
-                        snd = new SoundPlayer(DIR + music[currentSong]);
-                        snd.Play();
+
+                        if (!radioOn)
+                        {
+                            snd = new SoundPlayer(DIR + music[currentSong]);
+                            snd.Play();
+                            radioOn = true;
+                        }
+                        else suggest("Radio is already on");
                         break;
                     case "off":
-                        if (snd != null) snd.Stop();
+                        if (snd != null)
+                        {
+                            snd.Stop();
+                            radioOn = false;
+                        }
+                        else suggest("Radio is already turned off.");
+
                         break;
                     case "louder":
                         break;
                     case "quieter":
                         break;
                     case "next":
-                        currentSong = (currentSong + 1) % music.Length;
-                        snd.SoundLocation = DIR + music[currentSong];
-                        snd.Play();
+                        if (radioOn)
+                        {
+                            currentSong = (currentSong + 1) % music.Length;
+                            snd.SoundLocation = DIR + music[currentSong];
+                            snd.Play();
+                        }
+                        else suggest("Radio must be on");
+
                         break;
                     case "silent":
                         break;
                     case "previous":
+                        if (radioOn)
+                        { 
                         if (currentSong > 0) currentSong--;
                         else currentSong = music.Length - 1;
 
                         snd.SoundLocation = DIR + music[currentSong];
                         snd.Play();
+                        }
+                        else suggest("Radio must be on");
+
+
                         break;
                     case "random":
                     case "shuffle":
-                        Random rnd = new Random();
-                        currentSong = rnd.Next(0, music.Length - 1);
-                        snd.SoundLocation = DIR + music[currentSong];
-                        snd.Play();
+                        if (radioOn)
+                        {
+                            Random rnd = new Random();
+                            currentSong = rnd.Next(0, music.Length - 1);
+                            snd.SoundLocation = DIR + music[currentSong];
+                            snd.Play();
+                        }
+                        else suggest("Radio must be on");
+                    
                         break;
                     default:
                         invalid = true;
@@ -72,6 +102,8 @@ namespace SpeechRecognition
                 if (invalid) Invalid();
 
             }
+            else suggest("Car must be turned on");
+            
 
         }
 
@@ -83,18 +115,20 @@ namespace SpeechRecognition
                 case "on":
                     if (!carOn)
                     {
-                        SoundPlayer snd = new SoundPlayer(DIR+"engineon.wav");
+                        SoundPlayer snd = new SoundPlayer(DIR + "engineon.wav");
                         snd.Play();
                         carOn = true;
                     }
+                    else suggest("Car is already on");
                     break;
                 case "off":
                     if (carOn)
                     {
-                        SoundPlayer snd = new SoundPlayer(DIR+"engineoff.wav");
+                        SoundPlayer snd = new SoundPlayer(DIR + "engineoff.wav");
                         snd.Play();
                         carOn = false;
                     }
+                    else suggest("Car is already off");
                     break;
             }
         }
@@ -185,5 +219,12 @@ namespace SpeechRecognition
             Console.WriteLine(input);
             Console.ForegroundColor = ConsoleColor.White;
         }
+
+        public static void suggest(String suggestion)
+        {
+            SpeechSynthesizer synth = new SpeechSynthesizer();
+            synth.SpeakAsync(suggestion);
+        }
+
     }
 }
